@@ -17,7 +17,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
             eq(messages.user_b, user.id),
         ));
 
-    let allUsers: any;
+    let allUsers: User[] = [];
     // Get an array of all the users this person talks to
     let uniqueConvIds: Array<string> = [];
     for(const c of conversations) {
@@ -32,7 +32,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
         if (allUsers === undefined)
             allUsers = u;
         else
-            allUsers.concat(u);
+            allUsers.push(u[0]);
     };
 
     return {
