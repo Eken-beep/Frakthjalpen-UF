@@ -13,59 +13,61 @@
 </script>
 
 <div class="conversation">
-    <ul class="messages">
+    <div class="messages">
         {#each messages as message}
-            <li aria-label={message.sender === currentUser.id ? "me" : "other"}>
-                <span>
+            <div class="message" aria-label={message.sender === currentUser.id ? "me" : "other"}>
+                <span class="bubble">
                     {message.text}
                 </span>
-            </li>
+            </div>
         {/each}
-    </ul>
+    </div>
 
     <div class="message-send">
         <form action="?/send" method="POST">
             <input name="textmessage" type="text">
-            <input type="submit" name="Skicka">
+            <input type="submit" name="Skicka" value="Skicka">
         </form> 
     </div>
 </div>
 
 <style>
-    ul {
-        list-style: none;
+    .messages {
         display: flex;
         flex-direction: column;
         overflow: scroll;
-        height: 80%;
+        height: max-content;
         scroll-behavior: smooth;
         overflow-x: hidden;
+        height: 92%;
     }
-    li span {
+    span.bubble {
+        display: block;
         background-color: white;
         padding: 0.5em;
         border-radius: 1em;
         height: auto;
+        overflow: hidden;
     }
-    li {
-        margin-top: 1.5em;
+    .message {
+        margin: 1.5em 2em 0 2em;
+        display: flex;
+        justify-content: flex-start;
     }
-    li[aria-label="me"] {
-        margin-left: 2em;
+    .message[aria-label="me"] {
+        justify-content: flex-end;
     }
-    li[aria-label="me"] span {
+    .message[aria-label="me"] span {
         background-color: lightskyblue;
-    }
-    li[aria-label="me"]::before {
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 40em;
-        height: 1em;
+        max-width: 80%;
     }
     .conversation {
-        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 85vh;
         background-color: var(--cbg-1);
+        padding: 10;
         padding-top: 1em;
         border-radius: 15px;
         width: 45vw
@@ -78,9 +80,9 @@
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
         padding-top: 0.5em;
-        padding-left: 1em;
-        width: 45vw;
-        height: 3rem;
+        padding-bottom: 0.5em;
+        width: 100%;
+        height: 8%;
     }
 
     .message-send form {
@@ -94,5 +96,10 @@
         border: 2px solid rgba(100, 100, 100, 0.3);
         border-radius: 15px;
         width: 150%;
+    }
+
+    input[name="Skicka"] {
+        border: 2px solid rgba(100, 100, 100, 0.3);
+        border-radius: 15px;
     }
 </style>
