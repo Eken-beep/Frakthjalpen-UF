@@ -24,9 +24,13 @@
     </div>
 
     <div class="message-send">
+        <form action="?/modify" method="POST">
+            <input class="cc" type="submit" name="complete" value="Acceptera">
+            <input class="cc" type="submit" name="end" value="Avsluta">
+        </form>
         <form action="?/send" method="POST">
-            <input name="textmessage" type="text">
-            <input type="submit" name="Skicka" value="Skicka">
+            <input name="textmessage" type="text" class="textbox">
+            <input type="submit" name="Skicka" value="Skicka" class="send">
         </form> 
     </div>
 </div>
@@ -36,10 +40,10 @@
         display: flex;
         flex-direction: column;
         overflow: scroll;
-        height: max-content;
+        min-height: calc(100% - 8em);
         scroll-behavior: smooth;
         overflow-x: hidden;
-        height: 92%;
+        padding: 1em;
     }
     span.bubble {
         display: block;
@@ -50,7 +54,7 @@
         overflow: hidden;
     }
     .message {
-        margin: 1.5em 2em 0 2em;
+        margin-top: 2em;
         display: flex;
         justify-content: flex-start;
     }
@@ -64,7 +68,7 @@
     .conversation {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-evenly;
         height: 85vh;
         background-color: var(--cbg-1);
         padding: 10;
@@ -76,13 +80,12 @@
     .message-send {
         background-color: #FFFFFF;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
-        padding-top: 0.5em;
-        padding-bottom: 0.5em;
-        width: 100%;
-        height: 8%;
+        padding: 0.5em;
+        width: calc(100% - 1em);
+        height: 8em;
     }
 
     .message-send form {
@@ -95,11 +98,13 @@
     .message-send form input[name="textmessage"] {
         border: 2px solid rgba(100, 100, 100, 0.3);
         border-radius: 15px;
-        width: 150%;
+        width: auto;
+        margin-right: 1em;
     }
 
     input[name="Skicka"] {
         border: 2px solid rgba(100, 100, 100, 0.3);
         border-radius: 15px;
+        width: 6em;
     }
 </style>

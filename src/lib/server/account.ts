@@ -29,7 +29,7 @@ export async function preparePassword(pwd: string): Promise<string> {
     return hash;
 }
 
-export async function makeSession(userId: string, cookies: Cookies) {
+export async function makeSession(userId: string, cookies: Cookies): Promise<boolean> {
     const token = crypto.randomUUID();
     const session: Session = {
         userId: userId,
@@ -38,4 +38,6 @@ export async function makeSession(userId: string, cookies: Cookies) {
     cookies.set("session_id", session.session_token, { path: '/' });
 
     await db.insert(sessions).values(session);
+
+    return true;
 }

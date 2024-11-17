@@ -5,16 +5,10 @@
 
 <script lang="ts">
     import { error, redirect } from "@sveltejs/kit";
-    import type { PageData, ActionData } from "./$types";
+    import type { PageServerData, ActionData } from "./$types";
     import type { User } from "$lib/types";
 
-    let { data, form }: { data: PageData, form: ActionData } = $props();
-    let users: any;
-    if (data === null) {
-        error(500, { message: "Internal Server Error" });
-    } else {
-        users = data["users"];
-    }
+    let { data, form }: { data: PageServerData, form: ActionData } = $props();
     
     const user: User | null = data["user"];
 

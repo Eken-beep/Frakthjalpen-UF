@@ -60,5 +60,17 @@ export const actions = {
             .update(messages)
             .set({ messages: allMessages })
             .where(eq(messages.conversation_id, conversation[0].conversation_id));
-    }
+    },
+    modify: async(event) => {
+        const data = await event.request.formData();
+        if (data.get("complete") !== null) {
+            console.log(event.params, "Slutför köp av frakt");
+        } else {
+            const cid = Number(event.params.conversation);
+            const deleted = await db
+                .delete(messages)
+                .where(eq(messages.conversation_id, cid))
+                .returning();
+        }
+    },
 } satisfies Actions;

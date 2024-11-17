@@ -23,6 +23,7 @@ export async function POST({ request }) {
             conversation_id: conversation_id,
             user_a: userId,
             user_b: postdata.owner,
+            post_id: postdata.post_id,
         });
 
         await addConversation(userId, conversation_id);

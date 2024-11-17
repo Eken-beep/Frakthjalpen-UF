@@ -43,8 +43,8 @@ export const actions = {
             });
         }
 
-        await makeSession(user[0].id, cookies);
+        const success = await makeSession(user[0].id, cookies);
 
-        redirect(303, "/account");
+        if (success) redirect(303, "/account");
     },
 } satisfies Actions;

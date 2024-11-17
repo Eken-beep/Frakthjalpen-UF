@@ -8,7 +8,7 @@
     import type { PageData, ActionData } from "./$types";
     const { data, form }: { data: PageData, form: ActionData } = $props();
 
-    const user: string | null = data["currentUser"];
+    const user: User | null = data["currentUser"];
 </script>
 
 <div class="mainbox">
@@ -22,10 +22,26 @@
                 <input name="title" type="text" required>
             </label>
             <label>
-                Pris för frakten
-                <input name="price" type="number" style="width:3em; margin: 0.5em" required>
-                Kr
+                Paketets vikt
+                <input name="weight" type="number" style="width:3em; margin: 0.5em" required>
+                Kg
             </label> <br>
+            <fieldset>
+                <legend>Välj typ av köpskydd</legend>
+
+                <span>
+                    <label>
+                        <input class="radio" type="radio" name="bp" value="bp_const" checked>
+                        Fast köpskydd
+                    </label>
+                </span><br>
+                <span>
+                    <label>
+                        <input class="radio" type="radio" name="bp" value="bp_flex">
+                        Rörligt köpskydd
+                    </label>
+                </span>
+            </fieldset>
             <label>
                 Beskrivning <br>
                 <textarea name="description" cols="60" ></textarea>
@@ -99,6 +115,10 @@
     }
     input {
         width: 100%;
+    }
+    input.radio {
+        display: inline-block;
+        width: auto;
     }
     textarea {
         resize: none;
