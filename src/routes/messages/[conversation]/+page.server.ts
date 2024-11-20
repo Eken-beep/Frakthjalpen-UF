@@ -3,7 +3,7 @@ import type { PageServerLoad, Actions } from "./$types";
 import type { Message, Conversation } from "$lib/types";
 import { db } from "./../../../index";
 import { eq } from "drizzle-orm";
-import { messages } from "$lib/server/db/schema";
+import { messages, posts } from "$lib/server/db/schema";
 import { loadSession } from "$lib/server/account";
 
 export const load: PageServerLoad = async ({ params, cookies }) => {
@@ -65,12 +65,35 @@ export const actions = {
         const data = await event.request.formData();
         if (data.get("complete") !== null) {
             console.log(event.params, "Slutför köp av frakt");
+            const post_id: number = (await db.select({id: messages.post_id}).from(messages).where(eq(messages.conversation_id, Number(event.params.conversation))))[0].id!;
+            const post = await db
+                .select()
+                .from(posts)
+                .where(eq(posts.post_id, post_id));
+
         } else {
             const cid = Number(event.params.conversation);
             const deleted = await db
                 .delete(messages)
                 .where(eq(messages.conversation_id, cid))
                 .returning();
+            const post_id = deleted[0].post_id;
+            const post = await db
+                .select()
+                .from(posts)
+                .where(eq(posts.post_id, post_id!));
+            let interestedUsers_new: string[] = [];
+            if (post[0].interestedUsers === null) return;
+            for (let i = 0; i < post[0].interestedUsers.length; i++) {
+                if (post[0].interestedUsers[i] !== deleted[0].user_a &&
+                    post[0].interestedUsers[i] !== deleted[0].user_b)
+                    interestedUsers_new.push(post[0].interestedUsers[i]);
+            }
+            console.log(interestedUsers_new);
+
+            await db.update(posts)
+                .set({ interestedUsers: interestedUsers_new })
+                .where(eq(posts.post_id, post_id!));
         }
     },
 } satisfies Actions;
