@@ -1,6 +1,7 @@
 <script lang="ts">
     import '../../../app.css';
     import { redirect } from "@sveltejs/kit";
+    import { loadStripe } from "@stripe/stripe-js";
     import type { Message, Conversation } from "$lib/types";
 
     let { data } = $props();

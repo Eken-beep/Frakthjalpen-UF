@@ -5,6 +5,7 @@ import { db } from "./../../../index";
 import { eq } from "drizzle-orm";
 import { messages, posts } from "$lib/server/db/schema";
 import { loadSession } from "$lib/server/account";
+import { createPaymentSession } from "$lib/server/pay";
 
 export const load: PageServerLoad = async ({ params, cookies }) => {
     const cid = Number(params.conversation);
@@ -71,6 +72,9 @@ export const actions = {
                 .from(posts)
                 .where(eq(posts.post_id, post_id));
 
+            const url = event.url.origin;
+
+            const paymentSession = await createPaymentSession(post[0], "", url);
         } else {
             const cid = Number(event.params.conversation);
             const deleted = await db
