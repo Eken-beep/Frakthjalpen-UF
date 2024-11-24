@@ -46,7 +46,7 @@ export const posts = sqliteTable("post", {
     startLocation: text("startLocation", { mode: "json" }).$type<Location>().notNull(),
     endLocation: text("endLocation", { mode: "json" }).$type<Location>().notNull(),
     interestedUsers: text("interestedUsers", { mode: "json" }).$type<Array<string>>(),
-    state: text("state").default("waiting").notNull(),
+    state: text("state").default("normal").notNull(),
 })
 
 export const messages = sqliteTable("message", {

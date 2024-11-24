@@ -4,8 +4,10 @@
     import { loadStripe } from "@stripe/stripe-js";
     import type { Message, Conversation } from "$lib/types";
 
+    import paperplane from "$lib/images/paper-plane.svg";
+
     let { data } = $props();
-    let conversation: Conversation = data.conversation[0];
+    let conversation: Conversation = data.conversation[0] as Conversation;
     let messages: Message[] = $state(conversation.messages!)
     let currentUser = data.currentUser;
     if (currentUser === null) {
@@ -30,18 +32,23 @@
             <input class="cc" type="submit" name="end" value="Avsluta">
         </form>
         <form action="?/send" method="POST">
-            <input name="textmessage" type="text" class="textbox">
-            <input type="submit" name="Skicka" value="Skicka" class="send">
+            <input name="textmessage" type="text" class="textbox" placeholder="Meddelande">
+            <button type="submit" name="Skicka" value="" class="send">
+                <img src={paperplane} alt="skicka" width="100%">
+            </button>
         </form> 
     </div>
 </div>
 
 <style>
+    * {
+        --message-send-height: 5em;
+    }
     .messages {
         display: flex;
         flex-direction: column;
         overflow: scroll;
-        min-height: calc(100% - 8em);
+        min-height: calc(100% - var(--message-send-height));
         scroll-behavior: smooth;
         overflow-x: hidden;
         padding: 1em;
@@ -86,7 +93,7 @@
         border-bottom-right-radius: 15px;
         padding: 0.5em;
         width: calc(100% - 1em);
-        height: 8em;
+        height: var(--message-send-height);
     }
 
     .message-send form {
@@ -96,16 +103,33 @@
         justify-content: space-between;
     }
 
-    .message-send form input[name="textmessage"] {
-        border: 2px solid rgba(100, 100, 100, 0.3);
-        border-radius: 15px;
-        width: auto;
-        margin-right: 1em;
+    form[action="?/send"] {
+        width: 70%;
     }
 
-    input[name="Skicka"] {
+    .message-send form input[name="textmessage"] {
+        padding-left: 1em;
+        padding-right: 1em;
         border: 2px solid rgba(100, 100, 100, 0.3);
         border-radius: 15px;
-        width: 6em;
+        width: 100%;
+        margin-right: 1em;
+    }
+    .message-send form input[name="textmessage"]::placeholder {
+        color: var(--ctext2);
+    }
+
+    button.send {
+        border: 2px solid rgba(100, 100, 100, 0.3);
+        border-radius: 15px;
+        width: 2.8em;
+        height: 100%;
+        padding: 0.1em;
+    }
+
+    input.cc {
+        border: 2px solid rgba(100, 100, 100, 0.3);
+        border-radius: 15px;
+        margin-right: 0.5em;
     }
 </style>

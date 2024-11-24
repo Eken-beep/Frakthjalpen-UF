@@ -10,6 +10,7 @@
 	--ctheme-1: #009933;
     --ctheme-2: #00aa33;
 	--ctext: rgba(0, 0, 0, 0.7);
+    --ctext2: rgba(50, 50, 50, 0.8);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
 	font-family: var(--font-body);

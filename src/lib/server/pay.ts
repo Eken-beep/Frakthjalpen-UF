@@ -1,13 +1,11 @@
 import type { Post } from "$lib/types";
 import { redirect } from "@sveltejs/kit";
-import { db } from "../../index";
-import { eq } from "drizzle-orm";
-import { posts } from "$lib/server/db/schema";
 import { Stripe } from "stripe";
+import type { User } from "$lib/types";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
-export const createPaymentSession = async (post: Post, forUser: string, url: string) => {
+export const createPaymentSession = async (post: Post, user: User, url: string) => {
     const session = await stripe.checkout.sessions.create({
         line_items: [
             {
@@ -16,21 +14,28 @@ export const createPaymentSession = async (post: Post, forUser: string, url: str
                     product_data: {
                         name: post.title,
                         description: post.description,
-                        metadata: {
-                            requester: post.owner,
-                            carrier: forUser,
-                        },
                     },
                     unit_amount_decimal: (post.price * 100).toString(10),
                 },
                 quantity: 1,
             }
         ],
+        customer_email: user.email,
         mode: "payment",
         success_url: url,
+        metadata: {
+            requester: post.owner,
+            carrier: user.id,
+            post: post.post_id,
+        },
+        payment_intent_data: {
+            metadata: {
+                requester: post.owner,
+                carrier: user.id,
+                post: post.post_id,
+            },
+        },
     });
-
-    await db.update(posts).set({ state: "payed"}).where(eq(posts.post_id, post.post_id));
 
     redirect(303, session.url!);
 }

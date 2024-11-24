@@ -65,16 +65,26 @@ export const actions = {
     modify: async(event) => {
         const data = await event.request.formData();
         if (data.get("complete") !== null) {
-            console.log(event.params, "Slutför köp av frakt");
-            const post_id: number = (await db.select({id: messages.post_id}).from(messages).where(eq(messages.conversation_id, Number(event.params.conversation))))[0].id!;
+            const currentUser = await loadSession(event.cookies);
+            if (currentUser === null) return;
+
+            const post_id: number = (await db.select().from(messages).where(eq(messages.conversation_id, Number(event.params.conversation))))[0].post_id!;
             const post = await db
                 .select()
                 .from(posts)
                 .where(eq(posts.post_id, post_id));
 
-            const url = event.url.origin;
+            // We just quit if already paid
+            if (post[0].state === "paid" || post[0].state === "done") return;
 
-            const paymentSession = await createPaymentSession(post[0], "", url);
+            if (currentUser.id !== post[0].owner) {
+                db.update(posts).set({state: "waiting"}).where(eq(posts.post_id, post_id));
+            } else if (post[0].state === "waiting"){
+                const url = event.url.origin;
+
+                await createPaymentSession(post[0], currentUser, url);
+
+            }
         } else {
             const cid = Number(event.params.conversation);
             const deleted = await db
@@ -95,7 +105,7 @@ export const actions = {
             }
             console.log(interestedUsers_new);
 
-            await db.update(posts)
+            db.update(posts)
                 .set({ interestedUsers: interestedUsers_new })
                 .where(eq(posts.post_id, post_id!));
         }

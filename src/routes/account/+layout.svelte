@@ -9,10 +9,26 @@
         <div class="main-container">
             <div class="sidebar">
                 <ul>
-                    <li>Profil</li>
-                    <li>Plats</li>
-                    <li>Mina annonser</li>
-                    <li>Sparade annonser</li>
+                    <li aria-current={
+                        $page.url.pathname.endsWith("profile") ||
+                        $page.url.pathname === "/account" ? "page" : undefined
+                    }>
+                        <a href="/account">Profil</a></li>
+                    <li aria-current={
+                        $page.url.pathname.endsWith("location") ? "page" : undefined
+                    }>
+                        <a href="/account/location">Plats</a>
+                    </li>
+                    <li aria-current={
+                        $page.url.pathname.endsWith("my_posts") ? "page" : undefined
+                    }>
+                        <a href="/account/my_posts">Mina annonser</a>
+                    </li>
+                    <li aria-current={
+                        $page.url.pathname.endsWith("saved_posts") ? "page" : undefined
+                    }>
+                        <a href="/account/saved_posts">Sparade annonser</a>
+                    </li>
                 </ul>
             </div>
             <div class="content">
@@ -55,8 +71,26 @@
         justify-content: start;
     }
 
+    a {
+        display: block;
+        color: var(--ctext-2);
+    }
+
     li {
         min-height: 2rem;
         font-size: larger;
+        position: relative;
+    }
+
+    li[aria-current='page']::before {
+        content: '';
+        position: absolute;
+        left: -1em;
+        top: calc(50% - 10px);
+        width: 10px;
+        height: 10px;
+        background-color: var(--ctheme-1);
+        border: none;
+        border-radius: 10px;
     }
 </style>

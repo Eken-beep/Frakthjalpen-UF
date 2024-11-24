@@ -12,6 +12,8 @@ export interface Post {
     startLocation: Location;
     endLocation: Location;
     post_id: number;
+    interestedUsers: null | Array<string>;
+    state: string;
 }
 
 export interface Conversation {
@@ -38,4 +40,5 @@ export interface User {
     email: string;
     //emailVerified: boolean | null,
     image: string | null;
+    location: Location | null;
 }

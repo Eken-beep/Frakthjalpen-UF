@@ -4,37 +4,9 @@
 </svelte:head>
 
 <script lang="ts">
-    import { error, redirect } from "@sveltejs/kit";
-    import type { PageServerData, ActionData } from "./$types";
-    import type { User } from "$lib/types";
+    import Profile from "./profile/+page.svelte";
 
-    let { data, form }: { data: PageServerData, form: ActionData } = $props();
-    
-    const user: User | null = data["user"];
-
-    async function unloadSession() {
-        const request = await fetch("/api/logout", {
-            method: "POST",
-        })
-
-        const response = await request.json();
-        if (response.success) redirect(303, "/");
-    }
+    const { data, form } = $props();
 </script>
 
-<ul>
-    <li>Namn: {user!.name}</li>
-    <li>Mejladress: {user!.email}</li>
-    <li>Profilbild: {user!.image}</li>
-    <li><button onclick={unloadSession}>
-        Logga ut
-    </button></li>
-</ul>
-
-<style>
-    li {
-        min-height: 2rem;
-        font-size: larger;
-    }
-
-</style>
+<Profile data={data} form={form} />
