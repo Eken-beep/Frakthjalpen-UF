@@ -53,6 +53,7 @@
 
     .content {
         padding: 1rem;
+        width: calc(100% - 12rem);
     }
 
     .sidebar {
@@ -87,10 +88,10 @@
         position: absolute;
         left: -1em;
         top: calc(50% - 10px);
-        width: 10px;
-        height: 10px;
+        width: 0;
+        height: 0;
         background-color: var(--ctheme-1);
-        border: none;
-        border-radius: 10px;
+        border: 6px solid transparent;
+        border-right: 6px solid var(--ctheme-1);
     }
 </style>

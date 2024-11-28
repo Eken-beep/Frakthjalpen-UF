@@ -1,0 +1,31 @@
+@import url("./../../app.css");
+
+.post-card {
+    background: var(--cbg-1);
+    width: calc(100% - 2em);
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 15px;
+}
+
+.post-card h1 {
+    font-size: x-large;
+}
+
+.post-card div {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+span.price {
+    display: block;
+    height: auto;
+}
+
+.modify-post {
+    background-color: var(--cbg-2);
+    border: 2px solid var(--cbg-0);
+    border-radius: 15px;
+    height: 2em;
+}
