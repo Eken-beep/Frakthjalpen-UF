@@ -35,7 +35,7 @@
     }
 </script>
 
-<div class="site-content">
+<div class="content">
     {#if selectedPost !== null}
         <button
             class="blur"
@@ -62,7 +62,7 @@
     {/if}
 	<h1>Alla fraktuppdrag</h1>
     {#each posts as post}
-        <button style="all:unset" onclick={() => { selectedPost = post }}>
+        <button class="post-button" onclick={() => { selectedPost = post }}>
             <div class="post">
                 <h2>{post.title}</h2>
                 <ul>
@@ -76,11 +76,18 @@
 </div>
 
 <style>
+    .content {
+        max-width: 60rem;
+        margin: 0 auto;
+        overflow-y: scroll;
+        margin-top: 4em;
+    }
     .post {
         background-color: white;
         border-radius: 15px;
-        margin: 4rem;
+        margin: 0;
         padding: 1rem;
+        width: 55rem;
     }
     .post:hover {
         background-color: #EFEFEF;
@@ -130,5 +137,29 @@
     }
     .interested button:hover {
         background-color: var(--ctheme-2);
+    }
+
+    .post-button {
+        all: unset;
+        width: 60rem;
+        margin-bottom: 2em;
+    }
+
+    @media(max-width: 1070px) {
+        h2 {
+            width: calc(100vw - 2rem);
+        }
+        .post {
+            margin: 0;
+            width: 100vw;
+            background: none;
+            border-radius: 0;
+        }
+
+        .post-button {
+            width: 100vw;
+            margin: 0;
+            border-bottom: 2px solid var(--ctext);
+        }
     }
 </style>

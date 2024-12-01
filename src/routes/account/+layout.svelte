@@ -4,7 +4,7 @@
     import { page } from "$app/stores";
 </script>
 
-<div class="site-content">
+<div class="mainbox">
     {#if data.user !== null}
         <div class="main-container">
             <div class="sidebar">
@@ -41,6 +41,17 @@
     {/if}
 </div>
 <style>
+    .mainbox {
+        border-radius: 15px;
+        padding: 1em;
+        padding-top: 4em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        overflow-x: hidden;
+        align-content: center;
+    }
+
     .main-container {
         margin: 0;
         padding: 1rem;
@@ -54,13 +65,13 @@
     .content {
         padding: 1rem;
         width: calc(100% - 12rem);
+        border-left: 3px solid var(--ctext2);
     }
 
     .sidebar {
         width: 12rem;
         padding-top: 1rem;
         padding-bottom: 1rem;
-        border-right: 2px solid var(--ctext);
         height: 100%;
     }
 
@@ -93,5 +104,30 @@
         background-color: var(--ctheme-1);
         border: 6px solid transparent;
         border-right: 6px solid var(--ctheme-1);
+    }
+
+    @media(max-width: 1070px) {
+        .mainbox {
+            padding: 0;
+            padding-top: 2em;
+        }
+
+        .sidebar {
+            width: 100%;
+            border-bottom: 2px solid var(--ctext2);
+        }
+        .main-container {
+            padding: 0;
+            flex-direction: column;
+            background: none;
+            width: 100%;
+        }
+
+        .content {
+            border: none;
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
     }
 </style>

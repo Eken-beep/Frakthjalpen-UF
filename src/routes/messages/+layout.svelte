@@ -28,8 +28,12 @@
 
 <div class="app">
     <nav>
-        <h2>Aktiva konversationer</h2>
-        <hr>
+        {#if conversations.length !== 0}
+            <h2>Aktiva konversationer</h2>
+            <hr>
+        {:else}
+            <p>Du har inga aktiva konversationer</p>
+        {/if}
         <ul>
         {#each conversations as c}
             <li class="conversation-card"
@@ -54,6 +58,7 @@
         justify-content: space-between;
         border-radius: 15px;
         padding: 2em;
+        margin-top: 2em;
 	}
 
     .conversation-card {
@@ -89,7 +94,9 @@
     hr {
         background: none;
     }
+
     nav {
+        display: block;
         border-right: 2px solid var(--ctext);
         padding-right: 2em;
         min-width: 10vw;
@@ -105,4 +112,24 @@
 		box-sizing: border-box;
         height: 100%;
 	}
-</style>
+
+    @media(max-width: 1070px) {
+        .app {
+            flex-direction: column;
+            align-content: center;
+        }
+
+        nav {
+            border: none;
+            padding: 0;
+            border-bottom: 2px solid var(--ctext);
+            padding-bottom: 0.7em;
+            width: 100%;
+        }
+
+        main {
+            padding: 0;
+            padding-top: 1em;
+        }
+    }
+    </style>

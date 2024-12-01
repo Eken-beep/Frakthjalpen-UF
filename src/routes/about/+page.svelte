@@ -4,9 +4,15 @@
 </svelte:head>
 
 <div class="text-column">
-	<h1>Om frakthjälpen</h1>
+	<h1>Om FraktHjälpen</h1>
 
 	<p>
-        Frakthjälpen är ett UF företag
+        FraktHjälpen är ett UF företag
 	</p>
 </div>
+
+<style>
+    p {
+        text-align: center;
+    }
+</style>

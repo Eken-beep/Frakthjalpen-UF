@@ -22,7 +22,7 @@ export const actions = {
 
         {
             const w = (data.get("weight") as unknown) as number;
-            if (w > 5) {
+            if (w < 5) {
                 price = 125;
             } else if ( 5 <= w && w < 10) {
                 price = 195;

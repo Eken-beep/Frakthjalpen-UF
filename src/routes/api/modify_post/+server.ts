@@ -3,13 +3,24 @@ import type { Post } from "$lib/types";
 import { eq } from "drizzle-orm";
 import { db } from "./../../../index";
 import { posts } from "$lib/server/db/schema";
+import { } from "$lib/server/pay";
 
 export async function POST({ request }) {
-    const { action, post_id }:
-        { action: string, post_id: number }
+    let success = false;
+    const { action, post }:
+        { action: string, post: Post }
         = await request.json();
 
     if (action === "remove") {
-        db.delete(posts).where(eq(posts.post_id, post_id));
+        const delPost = await db.delete(posts).where(eq(posts.post_id, post.post_id)).returning();
+        console.log("Deleted ", delPost);
+        success = true;
+    } else if (action === "boost") {
+        console.log("Inte inlagd funktion");
+        success = false;
     }
+
+    return json({
+        success: success,
+    });
 }

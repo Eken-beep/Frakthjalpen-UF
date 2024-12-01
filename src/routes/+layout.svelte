@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from './Header.svelte';
+    import HeaderMobile from './HeaderMobile.svelte';
 	import '../app.css';
 
 	let { children } = $props();
@@ -7,6 +8,7 @@
 
 <div class="app">
 	<Header />
+    <HeaderMobile />
 
 	<main>
 		{@render children()}
@@ -30,7 +32,7 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 1rem;
+		padding: 0rem;
 		width: 100%;
 		max-width: 64rem;
 		margin: 0 auto;
@@ -54,4 +56,10 @@
 			padding: 12px 0;
 		}
 	}
+
+    @media(width: 1070px) {
+        main {
+            padding: 0;
+        }
+    }
 </style>

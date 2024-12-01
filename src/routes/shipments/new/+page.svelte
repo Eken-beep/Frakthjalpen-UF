@@ -41,6 +41,9 @@
                         Rörligt köpskydd
                     </label>
                 </span>
+                <p>
+                    Läs mer om köpskydd <a href="/about">här</a>
+                </p>
             </fieldset>
             <label>
                 Beskrivning <br>
@@ -90,6 +93,7 @@
         background-color: white;
         border-radius: 15px;
         padding: 1em;
+        padding-top: 2em;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
@@ -123,5 +127,29 @@
     textarea {
         resize: none;
         width: 80%;
+    }
+
+    @media(max-width: 1070px) {
+        .location-chooser {
+            flex-direction: column;
+        }
+
+        .mainbox {
+            background: none;
+        }
+
+        input {
+            width: calc(100% - 2em);
+        }
+
+        textarea {
+            width: calc(100% - 2em);
+        }
+
+        fieldset {
+            width: calc(100% - 2em);
+            margin-left: 0;
+            margin-right: 0;
+        }
     }
 </style>

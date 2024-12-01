@@ -27,7 +27,7 @@
     </div>
 
     <div class="message-send">
-        <form action="?/modify" method="POST">
+        <form action="?/modify" method="POST" class="modify-conversation-desktop">
             <input class="cc" type="submit" name="complete" value="Acceptera">
             <input class="cc" type="submit" name="end" value="Avsluta">
         </form>
@@ -131,5 +131,35 @@
         border: 2px solid rgba(100, 100, 100, 0.3);
         border-radius: 15px;
         margin-right: 0.5em;
+    }
+
+    @media(max-width: 1070px) {
+        .messages {
+            height: 70vh;
+        }
+
+        .conversation {
+            width: 100%;
+        }
+
+        .modify-conversation-desktop {
+            display: none;
+        }
+
+        input[name="textmessage"] {
+            width: 80vw;
+        }
+
+        .message-send {
+            display: block;
+        }
+
+        .cc {
+            margin-bottom: 5px;
+        }
+
+        form[action="?/send"] {
+            width: 100%;
+        }
     }
 </style>

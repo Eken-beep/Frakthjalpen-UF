@@ -41,12 +41,13 @@
     header {
         display: flex;
         justify-content: space-between;
+        position: fixed;
+        width: 100vw;
     }
 
 	nav {
 		display: flex;
 		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
 	}
 
 	svg {
@@ -132,4 +133,10 @@
 	a:hover {
 		color: var(--ctheme-1);
 	}
+
+    @media(max-width: 1070px) {
+        header {
+            display: none;
+        }
+    }
 </style>

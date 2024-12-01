@@ -39,3 +39,38 @@ export const createPaymentSession = async (post: Post, user: User, url: string) 
 
     redirect(303, session.url!);
 }
+
+export const createPaymentSessionBoost = async (post: Post, user: User, url: string) => {
+    const session = await stripe.checkout.sessions.create({
+        line_items: [
+            {
+                price_data: {
+                    currency: "SEK",
+                    product_data: {
+                        name: `Boosta "${post.title}"`,
+                        description: "Boosta annonsen en gång för att synas bättre i flödet",
+                    },
+                    unit_amount_decimal: (29 * 100).toString(10),
+                },
+                quantity: 1,
+            }
+        ],
+        customer_email: user.email,
+        mode: "payment",
+        success_url: url,
+        metadata: {
+            requester: post.owner,
+            carrier: user.id,
+            post: post.post_id,
+        },
+        payment_intent_data: {
+            metadata: {
+                requester: post.owner,
+                carrier: user.id,
+                post: post.post_id,
+            },
+        },
+    });
+
+    redirect(303, session.url!);
+}

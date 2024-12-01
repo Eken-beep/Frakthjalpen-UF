@@ -1,5 +1,4 @@
 <script lang="ts">
-    let signedIn = $state(false);
 </script>
 
 <svelte:head>
@@ -7,11 +6,11 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section>
+<div class="site-content">
 	<h1>
-        Välkommen till frakthjälpen
+        Välkommen till FraktHjälpen
 	</h1>
-</section>
+</div>
 
 <style>
 	h1 {
