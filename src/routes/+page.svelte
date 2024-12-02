@@ -16,4 +16,8 @@
 	h1 {
 		width: 100%;
 	}
+
+    body {
+        overflow-y: hidden;
+    }
 </style>

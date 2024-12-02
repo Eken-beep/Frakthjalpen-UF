@@ -28,12 +28,14 @@
 
 <div class="app">
     <nav>
-        {#if conversations.length !== 0}
+        <!-- {#if conversations.length !== 0} -->
             <h2>Aktiva konversationer</h2>
             <hr>
+        <!--
         {:else}
             <p>Du har inga aktiva konversationer</p>
         {/if}
+        -->
         <ul>
         {#each conversations as c}
             <li class="conversation-card"
