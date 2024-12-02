@@ -35,6 +35,8 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
             allUsers.push(u[0]);
     };
 
+    console.log(conversations);
+
     return {
         conversations: conversations,
         users: allUsers,
