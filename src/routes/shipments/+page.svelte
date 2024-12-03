@@ -46,7 +46,7 @@
         <div class="postLarge">
             <h1>{selectedPost.title}</h1>
             <hr>
-            <p>{selectedPost.description}</p>
+            <pre>{selectedPost.description}</pre>
             <p style="float: right">{selectedPost.price} kr</p>
             <p>
                 Fraktas från {selectedPost.startLocation.city} till {selectedPost.endLocation.city}

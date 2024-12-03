@@ -1,21 +1,21 @@
 import type { LayoutServerLoad } from "./$types";
 import type { User, Conversation } from "$lib/types";
 import { db } from "../../index";
-import { users, messages } from "$lib/server/db/schema";
-import { eq, or } from "drizzle-orm";
+import { users, messages, posts } from "$lib/server/db/schema";
+import { eq, or, inArray } from "drizzle-orm";
 import { loadSession } from "$lib/server/account";
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
     const user = await loadSession(cookies);
     if(user === null) return null;
 
-    const conversations: Array<Conversation> = await db
+    const conversations: Array<Conversation> = (await db
         .select()
         .from(messages)
         .where(or(
             eq(messages.user_a, user.id),
             eq(messages.user_b, user.id),
-        ));
+        )));
 
     let allUsers: User[] = [];
     // Get an array of all the users this person talks to
@@ -35,11 +35,19 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
             allUsers.push(u[0]);
     };
 
-    console.log(conversations);
+    let post_ids: number[] = [];
+    for (const conv of conversations) {
+        post_ids.push(conv.post_id);
+    }
+
+    const postNames: Array<{title: string}> = await db.select({ title: posts.title })
+        .from(posts)
+        .where(inArray(posts.post_id, post_ids))
 
     return {
         conversations: conversations,
         users: allUsers,
         currentUser: user,
+        postNames: postNames,
     }
 }

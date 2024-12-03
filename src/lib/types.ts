@@ -21,6 +21,7 @@ export interface Conversation {
     user_a: string;
     user_b: string;
     messages: Array<Message> | null;
+    post_id: number;
 }
 
 export interface Message {

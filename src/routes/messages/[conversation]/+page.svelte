@@ -19,7 +19,7 @@
     <div class="messages">
         {#each messages as message}
             <div class="message" aria-label={message.sender === currentUser.id ? "me" : "other"}>
-                <span class="bubble">
+               <span class="bubble">
                     {message.text}
                 </span>
             </div>

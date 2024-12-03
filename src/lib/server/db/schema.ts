@@ -52,10 +52,10 @@ export const posts = sqliteTable("post", {
 export const messages = sqliteTable("message", {
     conversation_id: integer("conversation_id").unique().primaryKey().default(0),
     // User ids of participants
-    user_a: text("user_a"),
-    user_b: text("user_b"),
+    user_a: text("user_a").notNull(),
+    user_b: text("user_b").notNull(),
 
-    post_id: integer("post_id"),
+    post_id: integer("post_id").notNull(),
 
     messages: text("messages", { mode: "json" }).$type<Array<Message>>(),
 })

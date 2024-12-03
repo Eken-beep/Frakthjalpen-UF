@@ -2,14 +2,14 @@
 	import '../../app.css';
     import { page } from "$app/stores";
     import type { User, Message, Conversation } from '$lib/types';
+    import type { PageServerData } from "./$types";
 
-	let { children, data } = $props();
+	let { children, data }: { children: any, data: PageServerData } = $props();
 
     const conversations: Array<Conversation> = data.conversations;
     const users = data.users as Array<User>;
     const currentUser: User = data.currentUser;
-
-    let currentConversation: Conversation | null = null;
+    const titles: Array<{title: string}> = data.postNames;
 
     function name(id: string): string | undefined {
         for(const user of users) {
@@ -28,21 +28,21 @@
 
 <div class="app">
     <nav>
-        <!-- {#if conversations.length !== 0} -->
+        {#if conversations.length !== 0}
             <h2>Aktiva konversationer</h2>
             <hr>
-        <!--
         {:else}
             <p>Du har inga aktiva konversationer</p>
         {/if}
-        -->
         <ul>
-        {#each conversations as c}
+        {#each conversations as c, i}
             <li class="conversation-card"
             aria-current={$page.url.pathname.endsWith(String(c.conversation_id)) ? 'page' : undefined}
             >
-                <a href="/messages/{c.conversation_id}">
-                    {getConversationName(c)}
+                <!-- Messages don't get properly loaded otherwise for some reason -->
+                <a data-sveltekit-reload href="/messages/{c.conversation_id}">
+                    <p>{getConversationName(c)}</p>
+                    <p>{titles[i].title}</p>
                 </a>
             </li>
         {/each}
@@ -70,9 +70,9 @@
         border: none;
         border-radius: 15px;
         width: 100%;
-        height: 2em;
+        height: auto;
         margin: 0;
-        padding-bottom: 0.9em;
+        margin-bottom: 1em;
     }
 
     .conversation-card a {
