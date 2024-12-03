@@ -40,7 +40,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
         post_ids.push(conv.post_id);
     }
 
-    const postNames: Array<{title: string}> = await db.select({ title: posts.title })
+    const postNames: Array<{title: string}> = await db.select({ title: posts.title, post_id: posts.post_id })
         .from(posts)
         .where(inArray(posts.post_id, post_ids))
 

@@ -32,6 +32,30 @@
 
         const { success } = await response.json();
         console.log(success);
+
+        const pindex: number = posts.indexOf(selectedPost!);
+        if (posts[pindex].interestedUsers !== null) {
+            posts[pindex].interestedUsers.push(currentUser!.id);
+        } else {
+            posts[pindex].interestedUsers = [ currentUser!.id ];
+        }
+        if (selectedPost!.interestedUsers !== null) {
+            selectedPost!.interestedUsers.push(currentUser!.id);
+        } else {
+            selectedPost!.interestedUsers = [ currentUser!.id ];
+        }
+    }
+
+    function isAlreadyInterested(post: Post): boolean {
+        if (post.interestedUsers === null) {
+            return false;
+        } else {
+            if (currentUser !== null) {
+                return post.interestedUsers.includes(currentUser.id);
+            } else {
+                return true;
+            }
+        }
     }
 </script>
 
@@ -53,9 +77,11 @@
             </p>
             <div class="interested">
                 {#if currentUser !== null}
-                    <button onclick={addInterested}>
-                        Anmäl intresse
-                    </button>
+                    {#if !isAlreadyInterested(selectedPost)}
+                        <button onclick={addInterested}>
+                            Anmäl intresse
+                        </button>
+                    {/if}
                 {/if}
             </div>
         </div>

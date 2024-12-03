@@ -9,7 +9,7 @@
     const conversations: Array<Conversation> = data.conversations;
     const users = data.users as Array<User>;
     const currentUser: User = data.currentUser;
-    const titles: Array<{title: string}> = data.postNames;
+    const titles: Array<{title: string, post_id: number}> = data.postNames;
 
     function name(id: string): string | undefined {
         for(const user of users) {
@@ -24,6 +24,16 @@
             return name(c.user_a) as string;
         }
     }
+
+    function getConversationTitle(c: Conversation): string {
+        for (const title of titles) {
+            if (title.post_id === c.post_id)
+                return title.title;
+        }
+        return "";
+    }
+
+    console.log(titles);
 </script>
 
 <div class="app">
@@ -42,7 +52,7 @@
                 <!-- Messages don't get properly loaded otherwise for some reason -->
                 <a data-sveltekit-reload href="/messages/{c.conversation_id}">
                     <p>{getConversationName(c)}</p>
-                    <p>{titles[i].title}</p>
+                    <p>{getConversationTitle(c)}</p>
                 </a>
             </li>
         {/each}
