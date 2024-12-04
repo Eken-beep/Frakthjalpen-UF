@@ -7,7 +7,12 @@ import { loadSession } from "$lib/server/account";
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
     const user = await loadSession(cookies);
-    if(user === null) return null;
+    if(user === null) return { 
+        conversations: [],
+        users: [],
+        currentUser: null,
+        postNames: [],
+    };
 
     const conversations: Array<Conversation> = (await db
         .select()

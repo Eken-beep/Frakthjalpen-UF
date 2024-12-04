@@ -68,7 +68,10 @@ export const actions = {
             const currentUser = await loadSession(event.cookies);
             if (currentUser === null) return;
 
-            const post_id: number = (await db.select().from(messages).where(eq(messages.conversation_id, Number(event.params.conversation))))[0].post_id!;
+            const post_id: number = (await db
+                .select()
+                .from(messages)
+                .where(eq(messages.conversation_id, Number(event.params.conversation))))[0].post_id!;
             const post = await db
                 .select()
                 .from(posts)
@@ -78,7 +81,7 @@ export const actions = {
             if (post[0].state === "paid" || post[0].state === "done") return;
 
             if (currentUser.id !== post[0].owner) {
-                db.update(posts).set({state: "waiting"}).where(eq(posts.post_id, post_id));
+                await db.update(posts).set({state: "waiting"}).where(eq(posts.post_id, post_id));
             } else if (post[0].state === "waiting"){
                 const url = event.url.origin;
 

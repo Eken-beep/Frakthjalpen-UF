@@ -45,7 +45,7 @@
             <p>Du har inga aktiva konversationer</p>
         {/if}
         <ul>
-        {#each conversations as c, i}
+        {#each conversations as c}
             <li class="conversation-card"
             aria-current={$page.url.pathname.endsWith(String(c.conversation_id)) ? 'page' : undefined}
             >
