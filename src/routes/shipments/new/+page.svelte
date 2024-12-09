@@ -42,7 +42,7 @@
                     </label>
                 </span>
                 <p>
-                    Läs mer om köpskydd <a href="/about">här</a>
+                    Läs mer om köpskydd <a href="/about#bp">här</a>
                 </p>
             </fieldset>
             <label>
@@ -94,6 +94,8 @@
         border-radius: 15px;
         padding: 1em;
         padding-top: 2em;
+        margin-top: auto;
+        margin-bottom: auto;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;

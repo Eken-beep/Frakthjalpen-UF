@@ -32,8 +32,6 @@
         }
         return "";
     }
-
-    console.log(titles);
 </script>
 
 <div class="app">

@@ -30,7 +30,7 @@ export const load: PageServerLoad = (async ({ cookies }) => {
     )
 
     return {
-        user: currentUser!,
+        user: currentUser,
         myPosts: myPosts,
         savedPosts: allPostsInterestedUsers,
     }

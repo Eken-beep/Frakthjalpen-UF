@@ -3,14 +3,14 @@
 :root {
     --background: rgba(255, 255, 255, 0.7);
     --background-opaque: #f0f4f8;
-	--font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+	--font-body: Aleo, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	--font-mono: 'Fira Mono', monospace;
 	--cbg-0: #cad8e4;
 	--cbg-1: #cedce8;
 	--cbg-2: #edf0f8;
-	--ctheme-1: #009933;
-    --ctheme-2: #00aa33;
+	--ctheme-1: #08555b;
+    --ctheme-2: #65c8d0;
 	--ctext: rgba(0, 0, 0, 0.7);
     --ctext2: rgba(50, 50, 50, 0.8);
 	--column-width: 42rem;

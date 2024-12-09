@@ -25,6 +25,9 @@
                 <input name="password" type="password" required/>
             </label></li>
             <li>
+                Genom att skapa ett konto godkänner du <a href="/eula">våra användarvillkor</a>.
+            </li>
+            <li>
                 <input type="submit" value="Registrera Konto">
             </li>
         </ul></form>
@@ -50,6 +53,7 @@
     }
     form ul li {
         margin-top: 1em;
+        max-width: 22em;
     }
     .login-box {
         z-index: 10;
@@ -61,7 +65,7 @@
         align-content: center;
         background-color: rgba(255, 255, 255, 0.7);
         border-radius: 15px;
-        padding: 0;
+        padding: 1em;
     }
 
     input {

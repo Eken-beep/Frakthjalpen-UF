@@ -39,6 +39,7 @@
 
 <style>
     header {
+        font-family: Arial, system-ui;
         display: flex;
         justify-content: space-between;
         position: fixed;

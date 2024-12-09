@@ -59,7 +59,7 @@
         align-content: center;
         background-color: rgba(255, 255, 255, 0.7);
         border-radius: 15px;
-        padding: 0;
+        padding: 1em;
     }
 
     input {

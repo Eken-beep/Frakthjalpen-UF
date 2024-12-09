@@ -23,10 +23,12 @@ export async function POST({ request }) {
         throw error(400, "invalid request");
     }
 
+    console.log(event.data.object.object);
+
     if (event.type === "charge.succeeded") {
         const charge = event.data.object;
 
-        db
+        await db
             .update(posts)
             .set({state: "paid"})
             .where(eq(posts.post_id, Number(charge.metadata.post)));
