@@ -41,9 +41,6 @@
     <div class="box">
         <h2>Vi jobbar med hållbarhet!</h2>
         <p>
-            Grundtanken är att personer som redan är ute i butik kan hjälpa grannar och andra genom att inhandla och frakta paket. Detta gör FraktHjälpen till ett klimatsmart fraktalternativ.
-        </p>
-        <p>
             Privatpersoner kommer inte att behöva göra en extra resa för enstaka produkter, vilket underlättar för glesbygdsbor som ofta har långa avstånd till fysiska butiker.
         </p>
         <p>
