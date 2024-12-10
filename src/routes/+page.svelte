@@ -19,6 +19,9 @@
 </div>
 
 <style>
+    .site-content {
+        overflow: visible;
+    }
     h2 {
         font-size: 30pt;
         border-bottom: thick solid var(--ctext);
