@@ -93,7 +93,7 @@ pre {
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    overflow-y: scroll;
+    overflow-y: visible;
     margin-top: 4em;
 }
 

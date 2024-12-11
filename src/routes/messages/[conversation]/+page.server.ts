@@ -1,4 +1,4 @@
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { PageServerLoad, Actions } from "./$types";
 import type { Message, Conversation } from "$lib/types";
 import { db } from "./../../../index";
@@ -111,6 +111,8 @@ export const actions = {
             db.update(posts)
                 .set({ interestedUsers: interestedUsers_new })
                 .where(eq(posts.post_id, post_id!));
+
+            redirect(303, "/");
         }
     },
 } satisfies Actions;

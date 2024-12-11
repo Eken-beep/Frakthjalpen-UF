@@ -7,6 +7,7 @@
     import { error, redirect } from "@sveltejs/kit";
     import type { PageServerData, ActionData } from "./$types";
     import type { User } from "$lib/types";
+    import { invalidateAll } from "$app/navigation";
 
     let { data, form }: { data: PageServerData, form: ActionData } = $props();
     
@@ -21,7 +22,7 @@
         console.log(response)
         if (response.success) {
             console.log("loggar ut");
-            redirect(303, "/account");
+            invalidateAll();
         }
     }
 </script>
@@ -30,7 +31,7 @@
     <li>Namn: {user!.name}</li>
     <li>Mejladress: {user!.email}</li>
     <li>Profilbild: {user!.image}</li>
-    <li><button data-sveltekit-reload onclick={async () => await unloadSession()}>
+    <li><button onclick={async () => await unloadSession()}>
         Logga ut
     </button></li>
 </ul>
@@ -44,7 +45,9 @@
         display: inline-block;
         width: 8em;
         height: 2em;
-        background-color: var(--ctext2);
+        background-color: var(--background-opaque);
+        border: 2px solid var(--ctext);
+        border-radius: 15px;
     }
 
 </style>

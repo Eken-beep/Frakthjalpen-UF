@@ -3,6 +3,7 @@
     import type { Post } from "$lib/types";
     import type { PageData, ActionData } from "./$types";
     import { enhance } from "$app/forms";
+    import { invalidateAll } from "$app/navigation";
     import { redirect } from "@sveltejs/kit";
     let { data, form }: { data: PageData, form: ActionData } = $props();
     const posts: Post[] = $state(data.myPosts);
@@ -24,7 +25,7 @@
 
         const result = await response.json()
         console.log(result);
-        if(result.success) redirect(303, "/account/my_posts");
+        if(result.success) invalidateAll();
     }
 
     function boostPost() {
