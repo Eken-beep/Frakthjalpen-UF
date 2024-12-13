@@ -47,6 +47,7 @@ export const posts = sqliteTable("post", {
     endLocation: text("endLocation", { mode: "json" }).$type<Location>().notNull(),
     interestedUsers: text("interestedUsers", { mode: "json" }).$type<Array<string>>(),
     state: text("state").default("normal").notNull(),
+    boosts: integer("boosts").notNull().default(0),
 })
 
 export const messages = sqliteTable("message", {
