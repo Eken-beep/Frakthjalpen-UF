@@ -24,12 +24,14 @@ export const createPaymentSession = async (post: Post, user: User, url: string) 
         mode: "payment",
         success_url: url,
         metadata: {
+            type: "post",
             requester: post.owner,
             carrier: user.id,
             post: post.post_id,
         },
         payment_intent_data: {
             metadata: {
+                type: "post",
                 requester: post.owner,
                 carrier: user.id,
                 post: post.post_id,
@@ -59,12 +61,14 @@ export const createPaymentSessionBoost = async (post: Post, user: User, url: str
         mode: "payment",
         success_url: url,
         metadata: {
+            type: "boost",
             requester: post.owner,
             carrier: user.id,
             post: post.post_id,
         },
         payment_intent_data: {
             metadata: {
+                type: "boost",
                 requester: post.owner,
                 carrier: user.id,
                 post: post.post_id,

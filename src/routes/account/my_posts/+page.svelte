@@ -37,6 +37,16 @@
             }),
         });
     }
+
+    async function confirmShipment() {
+        const result = await fetch("/api/confirm", {
+            method: "POST",
+            body: JSON.stringify({
+                post_id: currentPost!.post_id,
+            })
+        });
+        const success = await result.json();
+    }
 </script>
 
 <div class="posts">
@@ -61,6 +71,12 @@
                 modify = !modify;
             }}>
                 Redigera
+            </button>
+            <button class="modify-post" onclick={async () => {
+                currentPost = post;
+                await confirmShipment();
+            }} title="Klicka här för att godkänna att du fått varan fraktad till dig, fungerar bara om den redan är betald">
+                Verifiera frakt
             </button>
         </div>
         {#if modify && currentPost === post}
