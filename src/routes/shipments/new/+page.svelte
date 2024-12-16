@@ -38,7 +38,13 @@
                 <span>
                     <label>
                         <input class="radio" type="radio" name="bp" value="bp_flex">
-                        Rörligt köpskydd
+                        Rörligt köpskydd (10% av paketets värde)
+                    </label>
+                </span><br>
+                <span>
+                    <label>
+                        <input type="number" name="value" style="width: 3em;">
+                        Paketets värde (kr), inverkar om valt köpskydd är rörligt
                     </label>
                 </span>
                 <p>
@@ -128,7 +134,7 @@
     }
     textarea {
         resize: none;
-        width: 80%;
+        width: calc(100% - 2em);
     }
 
     @media(max-width: 1070px) {
@@ -141,10 +147,6 @@
         }
 
         input {
-            width: calc(100% - 2em);
-        }
-
-        textarea {
             width: calc(100% - 2em);
         }
 

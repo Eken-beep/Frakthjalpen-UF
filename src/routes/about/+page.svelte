@@ -54,7 +54,7 @@
         FraktHjälpen UF är en mellanhand som håller i pengar från en köpare tills paketet har levererats. Betalningen sker via kortbetalning till företaget, som i sin tur betalar ut till frakthjälparen när paketet kommit fram i rätt skick, via banköverföring. Ett köpskydd är därför en extra kostnad som tillkommer i priset, det är obligatoriskt på grund av säkerhetsskäl. 
     </p>
     <p>
-        Det fasta köpskyddet innebär att en frakthjälpare endast fraktar en produkt, fast köpskydd motsvarar en fjärdedel av viktpriset. Köparen 
+        Det fasta köpskyddet innebär att en frakthjälpare endast fraktar en produkt, fast köpskydd motsvarar en fjärdedel av viktpriset.
         Det rörliga köpskyddet innebär att en frakthjälpare köper en produkt och fraktar den till mottagaren, rörligt köpskydd motsvarar en tiondel av priset för produkten. 
 	</p>
 </div>

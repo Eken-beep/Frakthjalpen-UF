@@ -34,7 +34,7 @@ export const actions = {
         }
         {
             const typeBp = (data.get("bp") as unknown) as string;
-            bp = typeBp === "bp_const" ? price / 4 : price * 0.1;
+            bp = (typeBp === "bp_const" ? price / 4 : Number(data.get("value")) * 0.1);
         }
 
         const startLocation: Location = {
