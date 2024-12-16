@@ -5,4 +5,4 @@
     const location = data.user.location;
 </script>
 
-{String(location)}
+{location}

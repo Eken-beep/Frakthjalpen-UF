@@ -6,6 +6,7 @@ import { loadSession } from "$lib/server/account";
 
 export const load: PageServerLoad = (async ({ cookies }) => {
     const currentPosts = await db.select().from(posts);
+    currentPosts.sort((a: Post, b: Post) => b.boosts - a.boosts);
     return {
         currentUser: (await loadSession(cookies)),
         posts: currentPosts,

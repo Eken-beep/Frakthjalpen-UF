@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { error, json } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
 import { db } from "../../../index";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { posts } from "$lib/server/db/schema";
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY);
@@ -28,10 +28,22 @@ export async function POST({ request }) {
     if (event.type === "charge.succeeded") {
         const charge = event.data.object;
 
-        await db
-            .update(posts)
-            .set({state: "paid"})
-            .where(eq(posts.post_id, Number(charge.metadata.post)));
+        switch(charge.metadata.type) {
+            case "post":
+                await db
+                    .update(posts)
+                    .set({state: "paid"})
+                    .where(eq(posts.post_id, Number(charge.metadata.post)));
+                break;
+            case "boost":
+                await db
+                    .update(posts)
+                    .set({ boosts: sql`${posts.boosts} + 1` })
+                break;
+            default:
+                console.log("Invalid charge");
+                break;
+        }
     }
 
     return json(200);

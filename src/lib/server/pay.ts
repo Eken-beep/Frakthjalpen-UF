@@ -76,5 +76,7 @@ export const createPaymentSessionBoost = async (post: Post, user: User, url: str
         },
     });
 
+    console.log(session);
+
     redirect(303, session.url!);
 }
