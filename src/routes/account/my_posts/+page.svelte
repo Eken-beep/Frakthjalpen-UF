@@ -58,6 +58,7 @@
                 <button class="modify-post" onclick={async () => {
                     currentPost = post;
                     await deletePost();
+                    invalidateAll();
                 }}>
                     radera
                 </button>
@@ -76,6 +77,7 @@
                 <button class="modify-post" onclick={async () => {
                     currentPost = post;
                     await confirmShipment();
+                    invalidateAll();
                 }} title="Klicka här för att godkänna att du fått varan fraktad till dig, fungerar bara om den redan är betald">
                     Verifiera frakt
                 </button>
