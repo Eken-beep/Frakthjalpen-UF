@@ -71,7 +71,8 @@
             <h1>{selectedPost.title}</h1>
             <hr>
             <pre>{selectedPost.description}</pre>
-            <p style="float: right">{selectedPost.price} kr</p>
+            <p style="float: right">{selectedPost.price + selectedPost.bp} kr <br>
+                Varav {selectedPost.price} kr går till fraktaren
             <p>
                 Fraktas från {selectedPost.startLocation.city} till {selectedPost.endLocation.city}
             </p>
@@ -92,7 +93,7 @@
             <div class="post">
                 <h2>{post.title}</h2>
                 <ul>
-                    <li>{post.price} kr</li>
+                    <li>{post.price + post.bp} kr</li>
                     <li>Sänds från {post.startLocation.city} till {post.endLocation.city}</li>
                     <li>{post.description.slice(0,100)}{#if post.description.length > 100}...{/if}</li>
                 </ul>
