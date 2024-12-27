@@ -59,6 +59,7 @@ export const actions = {
             description: data.get("description") as string,
             startLocation: startLocation,
             endLocation: endLocation,
+            associatedPosts: [],
         })
 
         redirect(303, "/shipments");

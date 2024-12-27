@@ -16,6 +16,7 @@ export interface Post {
     interestedUsers: null | Array<string>;
     state: string;
     boosts: number;
+    associatedPosts: Array<number> | null;
 }
 
 export interface Conversation {

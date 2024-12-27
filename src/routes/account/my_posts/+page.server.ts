@@ -16,6 +16,7 @@ export const actions = {
             title: data.get("title"),
             description: data.get("description"),
             price: data.get("price"),
+            bp: data.get("bp"),
             start_adress: data.get("start_adress"),
             start_pcode: data.get("start_pcode"),
             start_city: data.get("start_city"),
@@ -37,11 +38,12 @@ export const actions = {
         // Could also be done by only updating the relevant values
         // I realize that would be way prettier too
         // But I'm invested into this solution now
-        const newPost: Post = {
+        const newPost = {
             owner: postSkeleton.owner! as string,
             title: postSkeleton.title! as string,
             description: postSkeleton.description! as string,
             price: Number(postSkeleton.price! as string),
+            bp: Number(postSkeleton.bp! as string),
             startLocation: {
                 adress: postSkeleton.start_adress! as string,
                 postalCode: postSkeleton.start_pcode! as string,
@@ -56,11 +58,17 @@ export const actions = {
             interestedUsers:
                 (interestedUsersStr === "null" ? null : JSON.parse(interestedUsersStr)),
             state: postSkeleton.state! as string,
+
         }
 
         await db
             .update(posts)
-            .set(newPost)
+            .set({
+                title: newPost.title,
+                description: newPost.description,
+                startLocation: newPost.startLocation,
+                endLocation: newPost.endLocation,
+            })
             .where(eq(posts.post_id, newPost.post_id));
 
         return { success: true };

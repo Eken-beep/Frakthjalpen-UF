@@ -5,7 +5,8 @@
     import { enhance } from "$app/forms";
     import { invalidateAll } from "$app/navigation";
     let { data, form }: { data: PageData, form: ActionData } = $props();
-    const posts: Post[] = $state(data.myPosts);
+
+    let posts: Post[] = $state(data.myPosts);
 
     let modify = $state(false);
 
@@ -24,18 +25,17 @@
 
         const result = await response.json()
         console.log(result);
-        if(result.success) invalidateAll();
+        if (result.success) invalidateAll();
     }
 
     async function boostPost() {
-        const response = await fetch("/api/modify_post", {
+        await fetch("/api/modify_post", {
             method: "POST",
             body: JSON.stringify({
                 action: "boost",
                 post: currentPost,
             }),
         });
-        const result = await response.json();
     }
 
     async function confirmShipment() {
@@ -58,7 +58,6 @@
                 <button class="modify-post" onclick={async () => {
                     currentPost = post;
                     await deletePost();
-                    invalidateAll();
                 }}>
                     radera
                 </button>

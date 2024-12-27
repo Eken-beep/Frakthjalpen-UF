@@ -25,7 +25,7 @@
                 Paketets vikt
                 <input name="weight" type="number" style="width:3em; margin: 0.5em" required>
                 Kg
-            </label> <br>
+            </label><br>
             <fieldset>
                 <legend>Välj typ av köpskydd</legend>
 

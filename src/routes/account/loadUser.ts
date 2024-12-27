@@ -25,13 +25,16 @@ export const load: PageServerLoad = (async ({ cookies }) => {
         .from(posts)
         .where(isNotNull(posts.interestedUsers));
 
-    allPostsInterestedUsers.filter((value) => 
+    const allSavedPosts = allPostsInterestedUsers.filter((value) => 
         value.interestedUsers!.includes(currentUser.id)
     )
+
+    console.log(allSavedPosts)
 
     return {
         user: currentUser,
         myPosts: myPosts,
-        savedPosts: allPostsInterestedUsers,
+        savedPosts: (allSavedPosts.filter((post) => post.associatedPosts !== null)),
+        savedAssociatedPosts: (allSavedPosts.filter((post) => post.associatedPosts === null)),
     }
 }) satisfies PageServerLoad;

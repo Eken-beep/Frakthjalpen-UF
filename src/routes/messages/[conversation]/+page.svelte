@@ -31,7 +31,7 @@
             <input class="cc" type="submit" name="complete" value="Acceptera">
             <input class="cc" type="submit" name="end" value="Avsluta">
         </form>
-        <form action="?/send" method="POST">
+        <form action="?/send" method="POST" data-sveltekit-keepfocus>
             <input name="textmessage" type="text" class="textbox" placeholder="Meddelande">
             <button type="submit" name="Skicka" value="" class="send">
                 <img src={paperplane} alt="skicka" width="100%">

@@ -5,6 +5,7 @@ import { db } from "./../../../index";
 import { posts } from "$lib/server/db/schema";
 import { createPaymentSessionBoost } from "$lib/server/pay";
 import { loadSession } from "$lib/server/account";
+import { invalidateAll } from "$app/navigation";
 
 export async function POST({ request, cookies, url }) {
     let success = false;

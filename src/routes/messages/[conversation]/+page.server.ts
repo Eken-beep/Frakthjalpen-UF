@@ -112,7 +112,7 @@ export const actions = {
                 .set({ interestedUsers: interestedUsers_new })
                 .where(eq(posts.post_id, post_id!));
 
-            redirect(303, "/");
+            redirect(308, "/");
         }
     },
 } satisfies Actions;

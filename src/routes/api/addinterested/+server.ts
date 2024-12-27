@@ -1,5 +1,5 @@
 import { json } from "@sveltejs/kit";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { db } from "./../../../index";
 import { posts, messages, users } from "$lib/server/db/schema";
 
@@ -24,10 +24,43 @@ export async function POST({ request }) {
             user_a: userId,
             user_b: postdata.owner,
             post_id: postdata.post_id,
+            messages: [
+                {
+                    text: `Hej, jag kan tänka mig att frakta ditt paket "${postdata.title}" från ${postdata.startLocation.adress} till ${postdata.endLocation.adress}.`,
+                    sender: userId,
+                    read: false,
+                }
+            ],
         });
 
         await addConversation(userId, conversation_id);
         await addConversation(postdata.owner, conversation_id);
+
+        const associatedPosts = await db.select().from(posts)
+            .where(inArray(posts.post_id, postdata.associatedPosts!))
+
+        for (const ap of associatedPosts) {
+            let conversation_id_inner = Date.now();
+            if (conversation_id === conversation_id_inner)
+                conversation_id_inner++;
+
+            await db.insert(messages).values({
+                conversation_id: conversation_id,
+                user_a: userId,
+                user_b: postdata.owner,
+                post_id: postdata.post_id,
+                messages: [
+                    {
+                        text: `Hej, skulle du kunna ta mitt paket "${ap.title}" från ${ap.startLocation.adress} till ${ap.endLocation.adress} när du ändå svänger förbi?`,
+                        sender: ap.owner,
+                        read: false,
+                    }
+                ],
+            });
+
+            await addConversation(userId, conversation_id_inner);
+            await addConversation(ap.owner, conversation_id_inner)
+        }
     }
     await db.update(posts).set({
         interestedUsers: postdata.interestedUsers,

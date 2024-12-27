@@ -5,6 +5,7 @@
     import type { Post, User } from "$lib/types";
     let { data, form } = $props();
     const posts: Post[] = data.savedPosts;
+    const associatedPosts: Post[] = data.savedAssociatedPosts;
 
     import PostBare from "./../PostBare.svelte";
 
@@ -32,8 +33,25 @@
                 Gå till meddelanden
             </button>
         </div>
+        {#if post.associatedPosts!.length > 0}
+            <div class="associatedPosts">
+                <h2>Frakter du begärs göra samtidigt</h2>
+                {#each (associatedPosts.filter((p) => post.associatedPosts!.includes(p.post_id))) as associated}
+                    <hr>
+                    <PostBare post={associated} />
+                {/each}
+            </div>
+        {/if}
         {#if posts.length > 1 && i !== (posts.length - 1)}
             <hr>
         {/if}
     {/each}
 </div>
+
+<style>
+    .associatedPosts {
+        background-color: var(--cbg-1);
+        padding: 1em;
+        border-radius: 15px;
+    }
+</style>
