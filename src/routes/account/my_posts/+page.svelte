@@ -3,7 +3,7 @@
     import type { Post } from "$lib/types";
     import type { PageData, ActionData } from "./$types";
     import { enhance } from "$app/forms";
-    import { invalidateAll } from "$app/navigation";
+    import { invalidateAll, goto } from "$app/navigation";
     let { data, form }: { data: PageData, form: ActionData } = $props();
 
     let posts: Post[] = $state(data.myPosts);
@@ -15,38 +15,36 @@
     let currentPost: Post | null = $state(null);
 
     async function deletePost() {
-        const response = await fetch("/api/modify_post", {
+        await fetch("/api/modify_post", {
             method: "POST",
             body: JSON.stringify({
                 action: "remove",
                 post: currentPost,
             }),
         });
-
-        const result = await response.json()
-        console.log(result);
-        if (result.success) invalidateAll();
+        invalidateAll();
     }
 
     async function boostPost() {
-        await fetch("/api/modify_post", {
+        const result = await fetch("/api/modify_post", {
             method: "POST",
             body: JSON.stringify({
                 action: "boost",
                 post: currentPost,
             }),
         });
+
+        const json = await result.json();
+        window.location = json.url;
     }
 
     async function confirmShipment() {
-        const result = await fetch("/api/confirm", {
+        await fetch("/api/confirm", {
             method: "POST",
             body: JSON.stringify({
                 post_id: currentPost!.post_id,
             })
         });
-        const success = await result.json();
-        if (success === 200) invalidateAll();
     }
 </script>
 
@@ -57,7 +55,8 @@
             <div>
                 <button class="modify-post" onclick={async () => {
                     currentPost = post;
-                    await deletePost();
+                    deletePost();
+                    goto("/account", { invalidateAll: true });
                 }}>
                     radera
                 </button>
@@ -76,7 +75,7 @@
                 <button class="modify-post" onclick={async () => {
                     currentPost = post;
                     await confirmShipment();
-                    invalidateAll();
+                    goto("/account", { invalidateAll: true });
                 }} title="Klicka här för att godkänna att du fått varan fraktad till dig, fungerar bara om den redan är betald">
                     Verifiera frakt
                 </button>

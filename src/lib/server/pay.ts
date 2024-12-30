@@ -42,7 +42,7 @@ export const createPaymentSession = async (post: Post, user: User, url: string) 
     redirect(303, session.url!);
 }
 
-export const createPaymentSessionBoost = async (post: Post, user: User, url: string) => {
+export const createPaymentSessionBoost = async (post: Post, user: User, url: string): Promise<string> => {
     const session = await stripe.checkout.sessions.create({
         line_items: [
             {
@@ -76,7 +76,5 @@ export const createPaymentSessionBoost = async (post: Post, user: User, url: str
         },
     });
 
-    console.log(session);
-
-    redirect(303, session.url!);
+    return session.url!;
 }

@@ -1,6 +1,6 @@
 import { json, redirect } from "@sveltejs/kit";
 import type { Post } from "$lib/types";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { db } from "./../../../index";
 import { posts } from "$lib/server/db/schema";
 import { createPaymentSessionBoost } from "$lib/server/pay";
@@ -20,10 +20,13 @@ export async function POST({ request, cookies, url }) {
     if (action === "remove") {
         const delPost = await db.delete(posts).where(eq(posts.post_id, post.post_id)).returning();
         console.log("Deleted ", delPost);
+        // Delete orphaned sub-posts
+        await db.delete(posts).where(inArray(posts.post_id, delPost[0].associatedPosts!))
         success = true;
     } else if (action === "boost") {
-        await createPaymentSessionBoost(post, user, `${url.origin}/account/my_posts`);
+        stripeurl = await createPaymentSessionBoost(post, user, `${url.origin}/account/my_posts`);
         success = true;
+        console.log(stripeurl);
     }
 
     return json({
