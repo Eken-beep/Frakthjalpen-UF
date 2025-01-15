@@ -18,10 +18,7 @@ export async function POST({ request, cookies, url }) {
     if (user === null) return json({ success: false });
 
     if (action === "remove") {
-        const delPost = await db.delete(posts).where(eq(posts.post_id, post.post_id)).returning();
-        console.log("Deleted ", delPost);
-        // Delete orphaned sub-posts
-        await db.delete(posts).where(inArray(posts.post_id, delPost[0].associatedPosts!))
+        await db.delete(posts).where(eq(posts.post_id, post.post_id));
         success = true;
     } else if (action === "boost") {
         stripeurl = await createPaymentSessionBoost(post, user, `${url.origin}/account/my_posts`);

@@ -19,6 +19,16 @@ export interface Post {
     associatedPosts: Array<number> | null;
 }
 
+export interface Journey {
+    id: number;
+    owner: string;
+    date: string;
+    startLocation: Location;
+    endLocation: Location;
+    associatedPosts: Array<number>;
+
+}
+
 export interface Conversation {
     conversation_id: number;
     user_a: string;

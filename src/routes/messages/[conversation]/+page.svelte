@@ -1,7 +1,8 @@
 <script lang="ts">
     import '../../../app.css';
     import { redirect } from "@sveltejs/kit";
-    import { loadStripe } from "@stripe/stripe-js";
+    import { enhance } from "$app/forms";
+    import { goto } from "$app/navigation";
     import type { Message, Conversation } from "$lib/types";
 
     import paperplane from "$lib/images/paper-plane.svg";
@@ -27,7 +28,13 @@
     </div>
 
     <div class="message-send">
-        <form action="?/modify" method="POST" class="modify-conversation-desktop">
+        <form action="?/modify" method="POST" class="modify-conversation-desktop" use:enhance={
+            async ({ formData: formData }) => {
+                const action = formData.get("cc")!;
+                if (action === "Avsluta")
+                    redirect(308, "/");
+            }
+        }>
             <input class="cc" type="submit" name="complete" value="Acceptera">
             <input class="cc" type="submit" name="end" value="Avsluta">
         </form>

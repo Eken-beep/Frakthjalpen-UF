@@ -3,7 +3,7 @@ import type { User, Post } from "$lib/types";
 import { loadSession } from "$lib/server/account";
 import { db } from "../../index";
 import { eq, isNotNull } from "drizzle-orm";
-import { posts } from "$lib/server/db/schema";
+import { posts, journeys } from "$lib/server/db/schema";
 
 // Default action for all pages under account
 export const load: PageServerLoad = (async ({ cookies }) => {
@@ -29,6 +29,11 @@ export const load: PageServerLoad = (async ({ cookies }) => {
         value.interestedUsers!.includes(currentUser.id)
     )
 
+    const allJourneys = await db
+        .select()
+        .from(journeys)
+        .where(eq(journeys.owner, currentUser.id))
+
     console.log(allSavedPosts)
 
     return {
@@ -36,5 +41,6 @@ export const load: PageServerLoad = (async ({ cookies }) => {
         myPosts: myPosts,
         savedPosts: (allSavedPosts.filter((post) => post.associatedPosts !== null)),
         savedAssociatedPosts: (allSavedPosts.filter((post) => post.associatedPosts === null)),
+        myJourneys: allJourneys
     }
 }) satisfies PageServerLoad;

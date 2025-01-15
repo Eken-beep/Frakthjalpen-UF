@@ -52,6 +52,15 @@ export const posts = sqliteTable("post", {
     associatedPosts: text("associatedPosts", { mode: "json" }).$type<Array<number>>(),
 })
 
+export const journeys = sqliteTable("journey", {
+    id: integer("id").notNull().primaryKey(),
+    owner: text("owner").notNull(),
+    startLocation: text("startLocation", { mode: "json" }).$type<Location>().notNull(),
+    endLocation: text("endLocation", { mode: "json" }).$type<Location>().notNull(),
+    date: text("date").notNull(),
+    associatedPosts: text("associatedPosts", { mode: "json" }).$type<Array<number>>().notNull(),
+})
+
 export const messages = sqliteTable("message", {
     conversation_id: integer("conversation_id").unique().primaryKey().default(0),
     // User ids of participants

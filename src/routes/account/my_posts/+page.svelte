@@ -22,7 +22,7 @@
                 post: currentPost,
             }),
         });
-        invalidateAll();
+        goto("/account");
     }
 
     async function boostPost() {
