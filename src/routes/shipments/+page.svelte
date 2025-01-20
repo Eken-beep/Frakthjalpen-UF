@@ -88,8 +88,10 @@
             <h1>{selectedPost.title}</h1>
             <hr>
             <pre>{selectedPost.description}</pre>
-            <p style="float: right">{selectedPost.price + selectedPost.bp} kr <br>
-                Varav {selectedPost.price} kr går till fraktaren
+            <p style="float: right">Totalt: {selectedPost.price + selectedPost.bp}kr <br>
+                Varav {selectedPost.price}kr går till fraktaren<br>
+                Samt {selectedPost.bp}kr i köpskydd<br>
+                {#if selectedPost.valuation !== 0}Paketets värde: {selectedPost.valuation}kr{/if}
             <p>
                 Fraktas från {selectedPost.startLocation.city} till {selectedPost.endLocation.city}
             </p>

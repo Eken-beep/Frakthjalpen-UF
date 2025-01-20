@@ -44,6 +44,7 @@ export const posts = sqliteTable("post", {
     description: text("description").notNull().default(""),
     price: integer("price").notNull(),
     bp: integer("bp").notNull(),
+    valuation: integer("valuation").notNull().default(0),
     startLocation: text("startLocation", { mode: "json" }).$type<Location>().notNull(),
     endLocation: text("endLocation", { mode: "json" }).$type<Location>().notNull(),
     interestedUsers: text("interestedUsers", { mode: "json" }).$type<Array<string>>(),

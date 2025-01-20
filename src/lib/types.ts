@@ -10,6 +10,7 @@ export interface Post {
     description: string;
     price: number;
     bp: number;
+    valuation: number;
     startLocation: Location;
     endLocation: Location;
     post_id: number;

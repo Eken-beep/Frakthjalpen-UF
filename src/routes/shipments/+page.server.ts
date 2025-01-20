@@ -70,6 +70,7 @@ export const actions = {
             title: data.get("title") as string,
             price: price,
             bp: bp,
+            valuation: Number(data.get("value") ?? 0),
             description: data.get("description") as string,
             startLocation: startLocation,
             endLocation: endLocation,
