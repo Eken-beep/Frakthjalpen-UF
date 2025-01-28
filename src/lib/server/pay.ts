@@ -15,7 +15,7 @@ export const createPaymentSession = async (post: Post, user: User, url: string) 
                         name: post.title,
                         description: post.description,
                     },
-                    unit_amount_decimal: ((post.price + post.bp) * 100).toString(10),
+                    unit_amount_decimal: ((post.price + post.bp + post.valuation) * 100).toString(10),
                 },
                 quantity: 1,
             }

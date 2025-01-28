@@ -35,8 +35,8 @@
                     redirect(308, "/");
             }
         }>
-            <input class="cc" type="submit" name="complete" value="Acceptera">
-            <input class="cc" type="submit" name="end" value="Avsluta">
+            <input class="cc" type="submit" name="complete" value="Acceptera & betala">
+            <input class="cc" type="submit" name="end" value="Avbryt">
         </form>
         <form action="?/send" method="POST" data-sveltekit-keepfocus>
             <input name="textmessage" type="text" class="textbox" placeholder="Meddelande">

@@ -58,13 +58,13 @@
                     deletePost();
                     goto("/account", { invalidateAll: true });
                 }}>
-                    radera
+                    <span style="color: red">RADERA</span>
                 </button>
                 <button class="modify-post" onclick={async () => {
                     currentPost = post;
                     await boostPost();
                 }}>
-                    boosta annons
+                    Boosta annons
                 </button>
                 <button class="modify-post" onclick={() => {
                     currentPost = post;

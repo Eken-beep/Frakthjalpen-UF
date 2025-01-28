@@ -30,13 +30,16 @@
 <ul>
     <li>Namn: {user!.name}</li>
     <li>Mejladress: {user!.email}</li>
-    <li>Profilbild: {user!.image}</li>
     <li><button onclick={async () => await unloadSession()}>
         Logga ut
     </button></li>
 </ul>
 
 <style>
+    ul {
+        list-style: none;
+    }
+
     li {
         min-height: 2rem;
         font-size: larger;
